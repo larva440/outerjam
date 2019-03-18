@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8>
+  <meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name=apple-mobile-web-app-capable content=yes>
+  <meta name=apple-mobile-web-app-status-bar-style content=black>
+  <title>Outer Jam</title>
+  
+  <link rel=stylesheet href=phosphorus.css>
+
+  <link rel=stylesheet href=fonts.css>
+
+  <style>
+    body {
+      background: #000;
+      margin: 0;
+      overflow: hidden;
+    }
+    .player {
+      position: absolute;
+    }
+    .splash, .error {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: table;
+      color: #fff;
+      cursor: default;
+    }
+    .error {
+      display: none;
+    }
+    .splash > div,
+    .error > div {
+      display: table-cell;
+      height: 100%;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .progress {
+      width: 80%;
+      height: 16px;
+      border: 1px solid #fff;
+      margin: 0 auto;
+    }
+    .progress-bar {
+      background: #fff;
+      width: 10%;
+      height: 100%;
+    }
+    h1 {
+      font: 300 72px Helvetica Neue, Helvetica, Arial, sans-serif;
+      margin: 0 0 16px;
+    }
+    p {
+      font: 300 24px/1.5 Helvetica Neue, Helvetica, Arial, sans-serif;
+      margin: 0;
+      color: rgba(255, 255, 255, .6);
+    }
+    .error a {
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class=player></div>
+  <div class=splash>
+    <div>
+      <h1>loading...</h1>
+      <div class=progress>
+        <div class=progress-bar></div>
+      </div>
+    </div>
+  </div>
+  
+  <script src=lib/jszip.min.js></script>
+  <script src=lib/rgbcolor.js></script>
+  <script src=lib/StackBlur.js></script>
+  <script src=lib/canvg.js></script>
+  <script src=phosphorus.dist.js></script>
+
+  <!-- app.html implements it own minimal loader/player -->
+  <script src=game.js></script>
+  <script>  
+    (function () {
+    'use strict';
+	var zipArchive;
+    var stage;
+    var turbo = true;
+    var fullScreen = true;
+
+   
+    var splash = document.querySelector('.splash');
+    var progressBar = document.querySelector('.progress-bar');
+    var player = document.querySelector('.player');
+
+    var stage;
+
+    function layout() {
+      if (!stage) return;
+      var w = Math.min(window.innerWidth, window.innerHeight / .75);
+      if (!fullScreen) w = Math.min(w, 480);
+      var h = w * .75;
+      player.style.left = (window.innerWidth - w) / 2 + 'px';
+      player.style.top = (window.innerHeight - h) / 2 + 'px';
+      stage.setZoom(w / 480);
+      stage.draw();
+    } 
+
+    window.addEventListener('resize', layout);
+
+   if (P.hasTouchEvents) {
+      document.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+      });
+    }
+
+    var totalTasks = 0;
+    var completedTasks = 0;
+    P.IO.progressHooks.new = function() {
+      totalTasks++;
+      progressBar.style.width = (10 + completedTasks / totalTasks * 90) + '%';
+    };
+    P.IO.progressHooks.end = function() {
+      completedTasks++;
+      progressBar.style.width = (10 + completedTasks / totalTasks * 90) + '%';
+    };
+
+	var binary_string =  window.atob(zip64);
+    var len = binary_string.length;
+    var bytes = new Uint8Array( len );
+    for (var i = 0; i < len; i++)        {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+	
+	
+	  
+	  return new P.sb3.SB3FileLoader(bytes.buffer)
+	  .load()
+      .then((s) => {
+        stage = s;
+
+        splash.style.display = 'none';
+        layout();
+        s.runtime.isTurbo = turbo;
+        s.runtime.start();
+        s.runtime.triggerGreenFlag();
+        player.appendChild(s.root);
+        s.focus();
+    //    s.runtime.handleError = showError;
+      }); //.catch((e) => showError(e));
+	  
+	  
+	  
+
+  }());
+  
+  
+  
+  </script>
+</body>
+</html>
