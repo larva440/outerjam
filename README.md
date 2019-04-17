@@ -14,11 +14,10 @@
 
 8. Maybe the result is not as spectacular as expected, but perf improvement is visible and now I can close this chapter of my life as a new man.
 
-game is available at play store: https://play.google.com/store/apps/details?id=com.larva440.outerjam
-since it is HTML5 you can run it in your browser https://pgasienica.github.io/outerjam/
-https://pgasienica.github.io/outerjam/platforms/android/app/src/main/assets/www/index.html
+* try it here in your browser: https://pgasienica.github.io/outerjam/
+* or download from play store: https://play.google.com/store/apps/details?id=com.larva440.outerjam
 
-links:
+source links:
 
 phosphorus prohject: https://phosphorus.github.io/
 sulfurous project: https://dardoro.github.io/Sulfurous/
