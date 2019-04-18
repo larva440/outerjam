@@ -14,10 +14,9 @@
 
 8. Maybe the result is not as spectacular as expected, but perf improvement is visible and now I can close this chapter of my life as a new man.
 
-* try it here in your browser: https://pgasienica.github.io/outerjam/
+* try it here in your browser: https://larva440.github.io/outerjam/
 * or download from play store: https://play.google.com/store/apps/details?id=com.larva440.outerjam
 
 source links:
-
-phosphorus prohject: https://phosphorus.github.io/
-sulfurous project: https://dardoro.github.io/Sulfurous/
+* phosphorus prohject: https://phosphorus.github.io/
+* sulfurous project: https://dardoro.github.io/Sulfurous/
